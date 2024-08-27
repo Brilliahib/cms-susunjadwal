@@ -1,14 +1,16 @@
 import LoginForm from "@/components/organisms/auth/LoginForm";
+import LoginBanner from "@/components/organisms/banner/LoginBanner";
 import { defineMetadata } from "@/lib/metadata";
 
 export const metadata = defineMetadata({
-  title: "Masuk",
+  title: "Login",
 });
 
-export default function Masuk() {
+export default function LoginPage() {
   return (
-    <main className="h-screen  bg-[url(/assets/images/auth/bg-pattern.jpg)] bg-cover bg-center bg-no-repeat">
-      <div className="flex h-full w-full items-center justify-center bg-white/80">
+    <main className="h-screen">
+      <div className="flex h-full w-full items-center">
+        <LoginBanner />
         <LoginForm />
       </div>
     </main>

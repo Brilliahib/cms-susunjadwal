@@ -7,7 +7,13 @@ import Link from "next/link";
 import { LoginType, loginSchema } from "@/validators/auth/login-validator";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -17,8 +23,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function LoginForm() {
   const form = useForm<LoginType>({
@@ -32,19 +38,14 @@ export default function LoginForm() {
 
   const onSubmit = async (body: LoginType) => {
     const res = await signIn("credentials", { ...body, redirect: false });
-    if (!res || res.error == "") {
-      toast({
-        title: "Gagal Masuk",
-        description: "terjadi kesalahan, coba lagi.",
-        variant: "destructive",
-      });
-      return;
-    }
 
-    if (res.error === "CredentialsSignin") {
+    if (!res || res.error) {
       toast({
         title: "Gagal Masuk",
-        description: "username atau password salah",
+        description:
+          res?.error === "CredentialsSignin"
+            ? "Username atau password salah"
+            : "Terjadi kesalahan, coba lagi.",
         variant: "destructive",
       });
       return;
@@ -52,71 +53,79 @@ export default function LoginForm() {
 
     toast({
       title: "Berhasil Masuk",
-      description: "anda berhasil masuk",
+      description: "Anda berhasil masuk",
+      variant: "success",
     });
-    return router.push("/dashboard");
+    router.push("/dashboard");
   };
 
   return (
-    <Card className="flex h-[30rem] w-full max-w-3xl overflow-hidden">
-      <div className="w-full p-10">
-        <CardHeader>
-          <CardTitle className="text-5xl">Masuk</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        id="email"
-                        placeholder="Masukkan email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        id="password"
-                        placeholder="Masukkan password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div>
-                <Link href="#" className="underline">
-                  Lupa password?
-                </Link>
-              </div>
-              <div className="space-x-3 text-right">
-                <Button variant="outline" asChild>
-                  <Link href="/daftar">Daftar</Link>
-                </Button>
-                <Button type="submit">Masuk</Button>
-              </div>
-            </form>
-          </Form>
-        </CardContent>
-      </div>
-    </Card>
+    <div className="md:w-7/12 flex justify-center">
+      <Card className="border-0">
+        <div className="w-full p-10">
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold">Masuk</CardTitle>
+            <CardDescription>
+              Selamat datang! Silahkan masuk menggunakan akun anda.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                className="space-y-5"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          id="email"
+                          placeholder="Masukkan email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          id="password"
+                          placeholder="Masukkan password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div>
+                  <Link href="#" className="underline">
+                    Lupa password?
+                  </Link>
+                </div>
+                <div>
+                  <Button type="submit" className="w-full">
+                    Masuk
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </div>
+      </Card>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ const defaultMetadataValues: Metadata = {
 
 export const defineMetadata = (metadata?: Metadata) => {
   const title = metadata?.title
-    ? `${metadata.title} | Mediko.id`
+    ? `${metadata.title} | SusunJadwal`
     : defaultMetadataValues.title;
   return {
     ...defaultMetadataValues,
