@@ -10,6 +10,6 @@ interface LoginResponse {
 export const loginApiHandler = async (
   body: LoginType
 ): Promise<LoginResponse> => {
-  const { data } = await api.post("/login", body);
+  const { data } = await api.post("/auth/login", body);
   return data;
 };
