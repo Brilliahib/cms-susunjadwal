@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { Paytone_One, Poppins } from "next/font/google";
 import GlobalProvider from "@/components/organisms/GlobalProvider";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -9,6 +9,13 @@ const poppins = Poppins({
   display: "swap",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-poppins",
+});
+
+const paytoneOne = Paytone_One({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
+  variable: "--font-paytone-one",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +29,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${poppins.variable} antialiased`}>
+    <html
+      lang="id"
+      className={`${poppins.variable} ${paytoneOne.variable} antialiased`}
+    >
       <body>
         <GlobalProvider>
           <main className="font-poppins">{children}</main>
