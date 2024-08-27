@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BookCheckIcon,
   BookIcon,
+  CalendarFold,
   CircleHelpIcon,
   GalleryThumbnails,
   LayoutDashboardIcon,
@@ -39,6 +40,12 @@ export default function Sidenav({ children, session }: SidenavProps) {
       label: "Dashboard",
       icon: LayoutDashboardIcon,
       active: pathname === "/dashboard",
+    },
+    {
+      href: "/dashboard/schedule",
+      label: "Jadwal Kuliah",
+      icon: CalendarFold,
+      active: pathname === "/dashboard/schedule",
     },
     {
       href: "/dashboard/settings",

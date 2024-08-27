@@ -17,7 +17,7 @@ export default function SideNavL({ links }: SideNavLProps) {
             href="/"
             className="flex text-left items-center gap-2 font-semibold"
           >
-            <h1 className="text-xl font-semibold">SusunJadwal</h1>
+            <h1 className="text-xl font-bold">SusunJadwal</h1>
           </Link>
         </div>
         <div className="flex-1">

@@ -61,7 +61,7 @@ export default function LoginForm() {
 
   return (
     <div className="md:w-7/12 flex justify-center">
-      <Card className="border-0">
+      <Card className="border-0 shadow-none">
         <div className="w-full p-10">
           <CardHeader>
             <CardTitle className="text-3xl font-bold">Masuk</CardTitle>

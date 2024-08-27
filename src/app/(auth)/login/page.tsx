@@ -9,7 +9,7 @@ export const metadata = defineMetadata({
 export default function LoginPage() {
   return (
     <main className="h-screen">
-      <div className="flex h-full w-full items-center">
+      <div className="md:flex h-full w-full items-center">
         <LoginBanner />
         <LoginForm />
       </div>
