@@ -16,11 +16,8 @@ export default function AssignmentList() {
     <>
       <div className="my-6 grid md:grid-cols-4 grid-cols-1 gap-4">
         {data?.data.map((assignment) => (
-          <Link href={`assignments/${assignment.id}`}>
-            <Card
-              className="w-full border-2 border-muted shadow-transparent group-hover:bg-muted h-full"
-              key={assignment.id}
-            >
+          <Link href={`assignments/${assignment.id}`} key={assignment.id}>
+            <Card className="w-full border-2 border-muted shadow-transparent group-hover:bg-muted h-full">
               <CardHeader className="space-y-2">
                 <Badge
                   variant={assignment.is_finish ? "success" : "destructive"}

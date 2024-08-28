@@ -52,7 +52,7 @@ export default function LoginForm() {
     }
 
     toast({
-      title: "Berhasil Masuk",
+      title: "Berhasil Masuk!",
       description: "Anda berhasil masuk",
       variant: "success",
     });
@@ -112,17 +112,22 @@ export default function LoginForm() {
                   )}
                 />
                 <div>
-                  <Link href="#" className="underline">
-                    Lupa password?
-                  </Link>
-                </div>
-                <div>
                   <Button type="submit" className="w-full">
                     Masuk
                   </Button>
                 </div>
               </form>
             </Form>
+            <div className="mt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                Belum punya akun?{" "}
+                <Link href={"/register"}>
+                  <span className="text-primary underline font-semibold">
+                    Daftar Sekarang
+                  </span>
+                </Link>
+              </p>
+            </div>
           </CardContent>
         </div>
       </Card>
