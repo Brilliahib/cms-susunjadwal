@@ -72,11 +72,12 @@ export default function SideNavHeader({ session }: SideNavHeaderProps) {
               <p>{session.user.name}</p>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem asChild className="cursor-pointer">
               <Link href="/dashboard/settings">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              className="text-destructive cursor-pointer focus:text-destructive focus:bg-destructive/20"
               onClick={() => signOut({ callbackUrl: "/login" })}
             >
               Keluar
