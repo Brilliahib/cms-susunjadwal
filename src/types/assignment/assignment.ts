@@ -4,4 +4,6 @@ export interface Assignment {
   title: string;
   start: Date;
   end: string;
+  is_finish: boolean;
+  description: string;
 }

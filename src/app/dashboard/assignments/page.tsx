@@ -7,10 +7,7 @@ import { Button } from "@/components/ui/button";
 export default function AssignmentDashboard() {
   return (
     <>
-      <div className="flex justify-between items-end">
-        <DashboardTitle title="Tugas Saya" />
-        <Button>Tambah Tugas</Button>
-      </div>
+      <DashboardTitle title="Tugas Saya" />
       <AssignmentList />
     </>
   );
