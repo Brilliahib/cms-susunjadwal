@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import { Paytone_One, Poppins } from "next/font/google";
+import GlobalProvider from "@/components/organisms/GlobalProvider";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+});
+
+const paytoneOne = Paytone_One({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
+  variable: "--font-paytone-one",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +29,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="id"
+      className={`${poppins.variable} ${paytoneOne.variable} antialiased`}
+    >
+      <body>
+        <GlobalProvider>
+          <main className="font-poppins">{children}</main>
+          <Toaster />
+        </GlobalProvider>
+      </body>
     </html>
   );
 }
