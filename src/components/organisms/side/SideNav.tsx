@@ -7,6 +7,7 @@ import {
   BookIcon,
   CalendarFold,
   CircleHelpIcon,
+  ClipboardCheck,
   GalleryThumbnails,
   LayoutDashboardIcon,
   LucideIcon,
@@ -46,6 +47,12 @@ export default function Sidenav({ children, session }: SidenavProps) {
       label: "Jadwal Kuliah",
       icon: CalendarFold,
       active: pathname === "/dashboard/schedule",
+    },
+    {
+      href: "/dashboard/assignments",
+      label: "Tugas",
+      icon: ClipboardCheck,
+      active: pathname === "/dashboard/assignments",
     },
     {
       href: "/dashboard/settings",
