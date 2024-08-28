@@ -13,28 +13,30 @@ export default function AssignmentList() {
   });
   return (
     <>
-      <div className="my-8 grid md:grid-cols-3 grid-cols-1">
+      <div className="my-6 grid md:grid-cols-3 grid-cols-1">
         {data?.data.map((assignment) => (
           <Link href={`assignments/${assignment.id}`}>
             <Card
-              className="w-full border-2 border-muted shadow-transparent group-hover:bg-muted hover:underline hover:text-primary"
+              className="w-full border-2 border-muted shadow-transparent group-hover:bg-muted"
               key={assignment.id}
             >
-              <CardHeader className="p-0 flex md:flex-row md:items-center md:justify-between">
-                <div className="relative hidden aspect-video w-full h-full items-center justify-center rounded-t-xl bg-primary group-hover:bg-secondary md:flex">
+              <CardHeader className="flex md:flex-row md:items-center md:justify-between">
+                <div className="relative hidden aspect-video w-full h-full items-center justify-center rounded-xl bg-primary group-hover:bg-secondary md:flex">
                   <ClipboardCheck className="m-auto h-12 w-12 text-white" />
                 </div>
               </CardHeader>
-              <CardContent className="pt-4 space-y-2">
-                <h1 className="font-bold">{assignment.title}</h1>
+              <CardContent className="space-y-2">
+                <h1 className="font-bold hover:text-primary hover:underline">
+                  {assignment.title}
+                </h1>
                 <p className="text-muted-foreground text-sm">
-                  Deadline{" "}
-                  <span className="text-red-600">
-                    {format(assignment.end, "EEEE d MMMM yyyy, HH:mm:ss", {
-                      locale: id,
-                    })}
-                  </span>
+                  This will later be filled with a description of the task.
                 </p>
+                <span className="text-red-500 text-sm">
+                  {format(assignment.end, "EEEE d MMMM yyyy, HH:mm:ss", {
+                    locale: id,
+                  })}
+                </span>
               </CardContent>
             </Card>
           </Link>

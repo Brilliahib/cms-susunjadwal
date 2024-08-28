@@ -25,7 +25,7 @@ export default function ScheduleCalendar() {
     })) || [];
   return (
     <>
-      <div className="my-8">
+      <div className="my-6">
         <Card>
           <CardContent>
             <FullCalendar
