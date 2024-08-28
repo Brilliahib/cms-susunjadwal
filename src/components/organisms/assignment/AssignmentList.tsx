@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { useGetAllAssignment } from "@/http/assignment/get-all-assignment";
 import { format } from "date-fns";
@@ -12,8 +13,16 @@ export default function AssignmentList() {
   const { data } = useGetAllAssignment(session.data?.access_token as string, {
     enabled: session.status === "authenticated",
   });
+
   return (
     <>
+      <div>
+        <Link href={"/dashboard/assignments/add"}>
+          <Button className="w-full sm:w-max" variant="default">
+            Tambah Tugas
+          </Button>
+        </Link>
+      </div>
       <div className="my-6 grid md:grid-cols-4 grid-cols-1 gap-4">
         {data?.data.map((assignment) => (
           <Link href={`assignments/${assignment.id}`} key={assignment.id}>
