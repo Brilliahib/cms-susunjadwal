@@ -26,7 +26,7 @@ export const useGetAllAssignment = (
   options?: Partial<UseQueryOptions<GetAllAssignmentResponse, AxiosError>>
 ) => {
   return useQuery({
-    queryKey: ["schedule"],
+    queryKey: ["assignments"],
     queryFn: () => getAllAssignmentHandler(token),
     ...options,
   });

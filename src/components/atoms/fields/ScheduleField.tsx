@@ -68,11 +68,12 @@ export default function ScheduleField({ value, onChange }: ScheduleFieldProps) {
             Mata kuliah tidak ada, tambahkan terlebih dahulu!
           </CommandEmpty>
           <CommandGroup>
-            <CommandList>
+            <CommandList className="text-left">
               {data?.data.map((item) => (
                 <CommandItem
                   key={item.id}
                   value={item.id.toString()}
+                  className="text-left"
                   onSelect={(currentValue: string) => {
                     const selectedValue = Number(currentValue);
                     setSelectedSchedule(selectedValue);

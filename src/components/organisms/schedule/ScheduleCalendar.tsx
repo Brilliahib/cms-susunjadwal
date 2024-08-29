@@ -36,11 +36,6 @@ export default function ScheduleCalendar() {
 
   return (
     <>
-      <div>
-        <Link href={"/dashboard/schedule/add"}>
-          <Button>Tambahkan Jadwal</Button>
-        </Link>
-      </div>
       <div className="my-6">
         <Card>
           <CardContent>

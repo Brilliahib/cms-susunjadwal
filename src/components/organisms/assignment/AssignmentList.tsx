@@ -1,6 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetAllAssignment } from "@/http/assignment/get-all-assignment";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -10,19 +16,19 @@ import Link from "next/link";
 
 export default function AssignmentList() {
   const session = useSession();
-  const { data } = useGetAllAssignment(session.data?.access_token as string, {
-    enabled: session.status === "authenticated",
-  });
+  const { data, isLoading } = useGetAllAssignment(
+    session.data?.access_token as string,
+    {
+      enabled: session.status === "authenticated",
+    }
+  );
+
+  if (isLoading) {
+    return <AssignmentSkeleton />;
+  }
 
   return (
     <>
-      <div>
-        <Link href={"/dashboard/assignments/add"}>
-          <Button className="w-full sm:w-max" variant="default">
-            Tambah Tugas
-          </Button>
-        </Link>
-      </div>
       <div className="my-6 grid md:grid-cols-4 grid-cols-1 gap-4">
         {data?.data.map((assignment) => (
           <Link href={`assignments/${assignment.id}`} key={assignment.id}>
@@ -57,3 +63,16 @@ export default function AssignmentList() {
     </>
   );
 }
+
+export const AssignmentSkeleton = () => {
+  return (
+    <>
+      <div className="my-6 grid md:grid-cols-4 grid-cols-1 gap-4">
+        <Skeleton className="h-[175px] w-[250px] rounded-xl" />
+        <Skeleton className="h-[175px] w-[250px] rounded-xl" />
+        <Skeleton className="h-[175px] w-[250px] rounded-xl" />
+        <Skeleton className="h-[175px] w-[250px] rounded-xl" />
+      </div>
+    </>
+  );
+};
