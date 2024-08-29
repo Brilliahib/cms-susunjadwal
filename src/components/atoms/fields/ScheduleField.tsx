@@ -59,12 +59,12 @@ export default function ScheduleField({ value, onChange }: ScheduleFieldProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command className="w-full">
+        <Command className="w-full font-poppins">
           <CommandInput
             placeholder="Pilih Mata Kuliah"
             className="h-9 w-full"
           />
-          <CommandEmpty>
+          <CommandEmpty className="px-8 text-muted-foreground text-sm pt-2">
             Mata kuliah tidak ada, tambahkan terlebih dahulu!
           </CommandEmpty>
           <CommandGroup>

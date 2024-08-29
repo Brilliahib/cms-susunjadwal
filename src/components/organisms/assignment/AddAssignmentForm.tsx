@@ -32,7 +32,7 @@ const AddAssignmentForm = () => {
     resolver: zodResolver(assignmentSchema),
     defaultValues: {
       title: "",
-      event_id: 0,
+      event_id: 1,
       start: "",
       end: "",
       description: "",
