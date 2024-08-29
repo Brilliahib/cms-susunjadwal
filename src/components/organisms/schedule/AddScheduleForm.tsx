@@ -5,12 +5,7 @@ import { AxiosError } from "axios";
 
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { useAddAssignment } from "@/http/assignment/add-assignment";
 import { useForm } from "react-hook-form";
-import {
-  assignmentSchema,
-  AssignmentType,
-} from "@/validators/assignment/assignment-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -26,16 +21,23 @@ import { Textarea } from "@/components/ui/textarea";
 import ScheduleField from "@/components/atoms/fields/ScheduleField";
 import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import {
+  scheduleSchema,
+  ScheduleType,
+} from "@/validators/schedule/schedule-validator";
+import { useAddSchedule } from "@/http/schedule/create-schedule";
 
-const AddAssignmentForm = () => {
-  const form = useForm<AssignmentType>({
-    resolver: zodResolver(assignmentSchema),
+const AddScheduleForm = () => {
+  const form = useForm<ScheduleType>({
+    resolver: zodResolver(scheduleSchema),
     defaultValues: {
-      title: "",
-      event_id: 1,
+      nama_matakuliah: "",
       start: "",
       end: "",
-      description: "",
+      dosen_pengampu: "",
+      sks: 0,
+      kelas: "",
+      ruang_kelas: "",
     },
     mode: "onChange",
   });
@@ -43,25 +45,28 @@ const AddAssignmentForm = () => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const { mutate: addAssignmentHandler, isPending } = useAddAssignment({
+  const { mutate: addScheduleHandler, isPending } = useAddSchedule({
     onError: (error: AxiosError<any>) => {
       toast({
-        title: "Gagal menambahkan assignment",
+        title: "Gagal menambahkan jadwal kuliah!",
         description: error.response?.data.message,
         variant: "destructive",
       });
     },
     onSuccess: () => {
-      toast({ title: "Berhasil menambahkan assignment", variant: "success" });
+      toast({
+        title: "Berhasil menambahkan jadwal kuliah!",
+        variant: "success",
+      });
       queryClient.invalidateQueries({
-        queryKey: ["assignments"],
+        queryKey: ["schedule"],
       });
       router.back();
     },
   });
 
-  const onSubmit = (body: AssignmentType) => {
-    addAssignmentHandler({ ...body });
+  const onSubmit = (body: ScheduleType) => {
+    addScheduleHandler({ ...body });
   };
 
   return (
@@ -76,35 +81,35 @@ const AddAssignmentForm = () => {
               <div className="flex grid md:grid-cols-2 grid-cols-1 md:gap-4 md:space-y-0 space-y-5">
                 <FormField
                   control={form.control}
-                  name="title"
+                  name="nama_matakuliah"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nama Tugas</FormLabel>
+                      <FormLabel>Mata Kuliah</FormLabel>
                       <FormControl>
                         <Input
                           type="text"
                           id="email"
-                          placeholder="Masukkan nama tugas"
+                          placeholder="Masukkan mata kuliah"
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        *Contoh: Laporan Praktikum Multimedia
-                      </FormDescription>
+                      <FormDescription>*Contoh: Struktur Data</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="event_id"
+                  name="dosen_pengampu"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mata Kuliah</FormLabel>
+                      <FormLabel>Dosen Pengampu</FormLabel>
                       <FormControl>
-                        <ScheduleField
-                          value={field.value as number}
-                          onChange={(value) => field.onChange(value)}
+                        <Input
+                          type="text"
+                          id="email"
+                          placeholder="Masukkan nama dosen pengampu"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -114,14 +119,53 @@ const AddAssignmentForm = () => {
               </div>
               <FormField
                 control={form.control}
-                name="description"
+                name="sks"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Deskripsi</FormLabel>
+                    <FormLabel>SKS</FormLabel>
                     <FormControl>
-                      <Textarea id="deskripsi" {...field} />
+                      <Input type="number" id="sks" {...field} />
                     </FormControl>
-                    <FormDescription>*Opsional</FormDescription>
+                    <FormDescription>
+                      *Harus berupa angka, contoh: 4
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="kelas"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Kelas</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        id="kelas"
+                        placeholder="Masukkan nama kelas"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ruang_kelas"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ruang Kelas</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        id="ruang_kelas"
+                        placeholder="Masukkan ruang kelas"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>*Contoh: B. 101 | T.KOM</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -132,7 +176,7 @@ const AddAssignmentForm = () => {
                   name="start"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Waktu diberikan tugas</FormLabel>
+                      <FormLabel>Waktu Mulai</FormLabel>
                       <FormControl>
                         <Input
                           className="text-muted-foreground"
@@ -150,7 +194,7 @@ const AddAssignmentForm = () => {
                   name="end"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tenggat Tugas</FormLabel>
+                      <FormLabel>Waktu Selesai</FormLabel>
                       <FormControl>
                         <Input
                           type="date"
@@ -177,4 +221,4 @@ const AddAssignmentForm = () => {
   );
 };
 
-export default AddAssignmentForm;
+export default AddScheduleForm;
