@@ -11,9 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetAllSchedule } from "@/http/schedule/get-all-schedule";
-import { format } from "date-fns";
-import { id } from "date-fns/locale";
-import { Book, Clock } from "lucide-react";
+import { Book } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { Menu } from "lucide-react";
@@ -21,13 +20,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import SideNavLink from "./SideNavLink";
 
 interface SideNavHeaderProps {
   session: Session;
   links: NavLink[];
 }
 
-export default function SideNavHeader({ session }: SideNavHeaderProps) {
+export default function SideNavHeader({ session, links }: SideNavHeaderProps) {
   return (
     <header className="fixed left-0 right-0 z-40 h-14 lg:h-[60px] lg:px-6">
       <div className="flex h-full w-full  items-center justify-between gap-4 bg-background px-4 md:justify-end md:px-16">
@@ -45,10 +45,17 @@ export default function SideNavHeader({ session }: SideNavHeaderProps) {
 
           <SheetContent side="left" className="flex flex-col">
             <div className="mx-auto my-8">
-              <Link href="/" className="flex items-center gap-2 font-semibold">
-                <h1 className="text-3xl font-semibold">SusunJadwal</h1>
+              <Link href="/" className="flex items-center  gap-2 font-semibold">
+                <h1 className="text-xl font-semibold">SusunJadwal</h1>
               </Link>
             </div>
+            <nav className="grid-gap-2 space-y-4 font-poppins">
+              {links
+                .filter((link) => !link.hide)
+                .map((link) => (
+                  <SideNavLink key={link.label} {...link} />
+                ))}
+            </nav>
           </SheetContent>
         </Sheet>
         <DropdownMenu>
@@ -67,7 +74,7 @@ export default function SideNavHeader({ session }: SideNavHeaderProps) {
               </Button>
             </DropdownMenuTrigger>
           </div>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="font-poppins">
             <DropdownMenuLabel>
               <p>{session.user.name}</p>
             </DropdownMenuLabel>
