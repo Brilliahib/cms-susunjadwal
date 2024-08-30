@@ -6,7 +6,7 @@ import ScheduleCalendar from "@/components/organisms/schedule/ScheduleCalendar";
 export default function ScheduleDashboard() {
   return (
     <>
-      <DashboardTitle title="Jadwal Kuliah" />
+      <DashboardTitle title="Kalender Kuliah" />
       <ScheduleCalendar />
     </>
   );

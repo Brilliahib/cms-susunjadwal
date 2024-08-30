@@ -1,27 +1,26 @@
+"use client";
+
 import { SearchInput } from "@/components/atoms/search/InputSearch";
-import ButtonAddAssignment from "@/components/molecules/button/ButtonAddAssignment";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import ButtonAddSchedule from "@/components/molecules/button/ButtonAddSchedule";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetAllAssignment } from "@/http/assignment/get-all-assignment";
+import { useGetAllSchedule } from "@/http/schedule/get-all-schedule";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { ClipboardCheck, Clock } from "lucide-react";
+import { Book, Clock } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function AssignmentList() {
+export default function CourseList() {
   const session = useSession();
-  const { data, isLoading } = useGetAllAssignment(
+  const { data, isPending } = useGetAllSchedule(
     session.data?.access_token as string,
     {
       enabled: session.status === "authenticated",
@@ -30,14 +29,13 @@ export default function AssignmentList() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const assignments = data?.data.filter((assignment) =>
-    assignment.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const schedules = data?.data.filter((schedule) =>
+    schedule.nama_matakuliah.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  if (isLoading) {
-    return <AssignmentSkeleton />;
+  if (isPending) {
+    return <CourseListSkeleton />;
   }
-
   return (
     <>
       <div className="my-6 flex flex-col md:flex-row md:justify-between gap-4">
@@ -46,41 +44,38 @@ export default function AssignmentList() {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Cari data"
         />
-        <ButtonAddAssignment />
+        <ButtonAddSchedule />
       </div>
       <div className="grid grid-cols-1 gap-4">
-        {assignments?.length === 0 ? (
+        {schedules?.length === 0 ? (
           <div className="text-center text-muted-foreground">
-            Tugas tidak ditemukan!
+            Mata kuliah tidak ditemukan!
           </div>
         ) : (
-          assignments?.map((assignment) => (
+          schedules?.map((assignment) => (
             <Link
-              href={`assignments/${assignment.id}`}
+              href={`schedule/${assignment.id}`}
               key={assignment.id}
               className="group block"
             >
               <div className="flex flex-row gap-6">
                 <div className="relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg bg-primary group-hover:bg-secondary md:flex">
-                  <ClipboardCheck className="m-auto h-12 w-12 text-background" />
+                  <Book className="m-auto h-12 w-12 text-background" />
                 </div>
                 <Card className="w-full border-2 border-muted shadow-transparent group-hover:bg-muted">
                   <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                     <div className="space-y-1">
                       <CardTitle className="text-md font-bold md:text-xl">
-                        {assignment.title}
+                        {assignment.nama_matakuliah}
                       </CardTitle>
                       <CardDescription className="text-sm text-muted-foreground line-clamp-2">
-                        {assignment.description}
+                        {assignment.dosen_pengampu}, Kelas {assignment.kelas}
                       </CardDescription>
                     </div>
                   </CardHeader>
                   <CardFooter>
                     <span className="text-muted-foreground text-sm flex gap-2">
-                      <Clock className="h-4 w-4" />
-                      {format(assignment.end, "d MMMM yyyy, HH:mm:ss", {
-                        locale: id,
-                      })}
+                      {assignment.ruang_kelas}
                     </span>
                   </CardFooter>
                 </Card>
@@ -93,7 +88,7 @@ export default function AssignmentList() {
   );
 }
 
-export const AssignmentSkeleton = () => {
+export const CourseListSkeleton = () => {
   return (
     <>
       <div className="my-6 grid grid-cols-1 gap-4">
