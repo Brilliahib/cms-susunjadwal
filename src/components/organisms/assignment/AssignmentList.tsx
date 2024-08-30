@@ -55,7 +55,11 @@ export default function AssignmentList() {
           </div>
         ) : (
           assignments?.map((assignment) => (
-            <Link href={`assignments/${assignment.id}`} className="group block">
+            <Link
+              href={`assignments/${assignment.id}`}
+              key={assignment.id}
+              className="group block"
+            >
               <div className="flex flex-row gap-6">
                 <div className="relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg bg-primary group-hover:bg-secondary md:flex">
                   <ClipboardCheck className="m-auto h-12 w-12 text-background" />
