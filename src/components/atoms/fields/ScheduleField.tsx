@@ -80,13 +80,13 @@ export default function ScheduleField({ value, onChange }: ScheduleFieldProps) {
                     setOpen(false);
                   }}
                 >
+                  {item.nama_matakuliah}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
                       selectedSchedule === item.id ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {item.nama_matakuliah}
                 </CommandItem>
               ))}
             </CommandList>
