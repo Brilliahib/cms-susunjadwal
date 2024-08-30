@@ -3,6 +3,7 @@
 import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import {
+  Book,
   BookCheckIcon,
   BookIcon,
   CalendarFold,
@@ -41,6 +42,12 @@ export default function Sidenav({ children, session }: SidenavProps) {
       label: "Dashboard",
       icon: LayoutDashboardIcon,
       active: pathname === "/dashboard",
+    },
+    {
+      href: "/dashboard/course",
+      label: "Mata Kuliah",
+      icon: Book,
+      active: pathname === "/dashboard/course",
     },
     {
       href: "/dashboard/schedule",

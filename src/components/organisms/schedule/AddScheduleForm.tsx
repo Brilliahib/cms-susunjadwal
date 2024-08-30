@@ -61,7 +61,7 @@ const AddScheduleForm = () => {
       queryClient.invalidateQueries({
         queryKey: ["schedule"],
       });
-      router.back();
+      router.push("/dashboard/course");
     },
   });
 
