@@ -27,9 +27,10 @@ export default function CourseList() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const schedules = data?.data.filter((schedule) =>
-    schedule.nama_matakuliah.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const schedules =
+    data?.data?.filter((schedule) =>
+      schedule.nama_matakuliah.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
 
   if (isPending) {
     return <CourseListSkeleton />;
