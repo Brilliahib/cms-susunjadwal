@@ -30,9 +30,10 @@ export default function AssignmentList() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const assignments = data?.data.filter((assignment) =>
-    assignment.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const assignments =
+    data?.data?.filter((assignment) =>
+      assignment.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
 
   if (isLoading) {
     return <AssignmentSkeleton />;
