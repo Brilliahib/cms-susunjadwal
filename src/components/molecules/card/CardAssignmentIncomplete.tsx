@@ -9,28 +9,27 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetAssignmentIncompleteCount } from "@/http/assignment/get-assignment-incomplete-count";
 import { useSession } from "next-auth/react";
 
-export default function CardAssignmentIncomplete() {
-  const session = useSession();
-  const { data, isPending } = useGetAssignmentIncompleteCount(
-    session.data?.access_token as string,
-    {
-      enabled: session.status === "authenticated",
-    }
-  );
+interface CardAssignmentProps {
+  title: string;
+  description: string;
+  data: number;
+}
 
-  if (isPending) {
-    return <CardCountSkeleton />;
-  }
-
+export default function CardAssignment({
+  title,
+  description,
+  data,
+}: CardAssignmentProps) {
   return (
     <Card className="relative flex-1 overflow-hidden">
       <CardHeader>
-        <CardTitle className="text-xl font-bold">Tugas</CardTitle>
-        <CardDescription>Belum dikerjakan</CardDescription>
+        <CardTitle className="text-xl font-bold">{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
         <h1 className="md:text-3xl text-xl font-bold">
-          {data?.incomplete_task_count?.toString()}
+          {/* {data?.incomplete_task_count?.toString()} */}
+          {data}
         </h1>
       </CardContent>
       <div className="absolute -right-2 bottom-1">
@@ -56,18 +55,46 @@ export default function CardAssignmentIncomplete() {
 
 export const CardCountSkeleton = () => {
   return (
-    <Card>
-      <CardHeader>
-        <Skeleton className="h-[30px] w-full">
-          <CardTitle>&nbsp;</CardTitle>{" "}
-        </Skeleton>
-        <Skeleton className="h-[30px] w-full">
-          <CardDescription>&nbsp;</CardDescription>{" "}
-        </Skeleton>
-      </CardHeader>
-      <CardContent>
-        <Skeleton className="h-[30px] w-[100px]">&nbsp;</Skeleton>{" "}
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-[30px] w-full">
+            <CardTitle>&nbsp;</CardTitle>{" "}
+          </Skeleton>
+          <Skeleton className="h-[30px] w-full">
+            <CardDescription>&nbsp;</CardDescription>{" "}
+          </Skeleton>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-[30px] w-[100px]">&nbsp;</Skeleton>{" "}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-[30px] w-full">
+            <CardTitle>&nbsp;</CardTitle>{" "}
+          </Skeleton>
+          <Skeleton className="h-[30px] w-full">
+            <CardDescription>&nbsp;</CardDescription>{" "}
+          </Skeleton>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-[30px] w-[100px]">&nbsp;</Skeleton>{" "}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-[30px] w-full">
+            <CardTitle>&nbsp;</CardTitle>{" "}
+          </Skeleton>
+          <Skeleton className="h-[30px] w-full">
+            <CardDescription>&nbsp;</CardDescription>{" "}
+          </Skeleton>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-[30px] w-[100px]">&nbsp;</Skeleton>{" "}
+        </CardContent>
+      </Card>
+    </>
   );
 };
