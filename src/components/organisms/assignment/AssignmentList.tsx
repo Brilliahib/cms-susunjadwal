@@ -21,7 +21,7 @@ import { useState } from "react";
 
 export default function AssignmentList() {
   const session = useSession();
-  const { data, isLoading } = useGetAllAssignment(
+  const { data, isPending } = useGetAllAssignment(
     session.data?.access_token as string,
     {
       enabled: session.status === "authenticated",
@@ -35,7 +35,7 @@ export default function AssignmentList() {
       assignment.title.toLowerCase().includes(searchQuery.toLowerCase())
     ) || [];
 
-  if (isLoading) {
+  if (isPending) {
     return <AssignmentSkeleton />;
   }
 
