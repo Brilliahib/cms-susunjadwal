@@ -96,9 +96,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="md:w-7/12 flex justify-center">
+    <div className="md:w-7/12 h-full items-center flex justify-center">
       <Card className="border-0 shadow-transparent">
-        <div className="w-full p-10">
+        <div className="w-full md:p-10">
           <CardHeader>
             <CardTitle className="text-3xl font-bold">Daftar</CardTitle>
             <CardDescription>
