@@ -73,3 +73,19 @@
     @apply px-4 md:px-[6%] lg:px-[8%];
   }
 }
+
+.fc-toolbar-title {
+  @apply font-bold !important;
+}
+
+.fc .fc-button-active {
+  @apply bg-primary text-primary-foreground border-0 !important;
+}
+
+.fc .fc-button-primary {
+  @apply bg-primary text-primary-foreground border-0;
+}
+
+.fc .fc-button:hover {
+  @apply bg-primary/90;
+}
