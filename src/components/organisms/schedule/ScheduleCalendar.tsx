@@ -14,7 +14,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -30,6 +30,19 @@ export default function ScheduleCalendar() {
   );
 
   const [selectedEvent, setSelectedEvent] = useState<EventApi | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   if (isPending) {
     return <div>loading...</div>;
@@ -69,16 +82,29 @@ export default function ScheduleCalendar() {
             plugins={[dayGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             events={events}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,dayGridWeek,dayGridDay",
-            }}
+            headerToolbar={
+              isMobile
+                ? {
+                    left: "",
+                    center: "title",
+                    right: "",
+                  }
+                : {
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,dayGridWeek",
+                  }
+            }
             eventClassNames="bg-primary text-white cursor-pointer"
             eventClick={handleEventClick}
             eventContent={renderEventContent}
             height="100%"
             contentHeight="auto"
+            titleFormat={
+              isMobile
+                ? { month: "short", year: "numeric" }
+                : { month: "long", year: "numeric" }
+            }
           />
         </CardHeader>
       </Card>
@@ -90,7 +116,9 @@ export default function ScheduleCalendar() {
         >
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{selectedEvent.title}</DialogTitle>
+              <DialogTitle className={isMobile ? "text-lg" : "text-xl"}>
+                {selectedEvent.title}
+              </DialogTitle>
             </DialogHeader>
             <div className="space-y-2">
               <p>

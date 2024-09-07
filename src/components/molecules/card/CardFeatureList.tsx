@@ -4,6 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Book, BookOpen, Calendar } from "lucide-react";
 
 export default function CardFeatureList() {
   return (
@@ -19,6 +20,9 @@ export default function CardFeatureList() {
         <div className="flex grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-4">
           <Card>
             <CardHeader>
+              <div className="p-4 bg-primary w-fit rounded-xl">
+                <Book className="md:h-8 md:w-8 text-white" />
+              </div>
               <CardTitle className="text-xl font-bold">
                 Manajemen Tugas
               </CardTitle>
@@ -31,6 +35,9 @@ export default function CardFeatureList() {
 
           <Card>
             <CardHeader>
+              <div className="p-4 bg-primary w-fit rounded-xl">
+                <BookOpen className="md:h-8 md:w-8 text-white" />
+              </div>
               <CardTitle className="text-xl font-bold">Mata Kuliah</CardTitle>
               <CardDescription>
                 Atur dan pantau mata kuliah Anda dengan mudah, serta lacak
@@ -41,6 +48,9 @@ export default function CardFeatureList() {
 
           <Card>
             <CardHeader>
+              <div className="p-4 bg-primary w-fit rounded-xl">
+                <Calendar className="md:h-8 md:w-8 text-white" />
+              </div>
               <CardTitle className="text-xl font-bold">
                 Kalender Jadwal Kuliah
               </CardTitle>
