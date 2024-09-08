@@ -52,8 +52,9 @@ export default function ScheduleCalendar() {
     data?.data?.map((event) => ({
       id: event.id.toString(),
       title: event.nama_matakuliah,
-      start: event.start,
-      end: event.end,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      date: event.date,
       extendedProps: {
         dosen: event.dosen_pengampu,
         ruang: event.ruang_kelas,
