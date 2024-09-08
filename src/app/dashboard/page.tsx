@@ -1,14 +1,23 @@
 "use client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import DashboardTitle from "@/components/atoms/typography/DashboardTitle";
 import WrapperDashboard from "@/components/organisms/dashboard/WrapperDashboard";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
-export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
+export default function Dashboard() {
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  if (session?.user.role === "admin") return redirect("/dashboard/admin");
+  if (!session) {
+    router.push("/login");
+    return null;
+  }
+
+  if (session.user.role === "admin") {
+    router.push("/dashboard/admin");
+    return null;
+  }
+
   return (
     <>
       <DashboardTitle title="Dashboard" />

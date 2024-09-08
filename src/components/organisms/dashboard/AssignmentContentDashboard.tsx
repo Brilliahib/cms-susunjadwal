@@ -46,17 +46,17 @@ export default function AssignmentContentDashboard() {
           <CardAssignment
             title="Tugas"
             description="Total tugas"
-            data={Number(incomplete?.incomplete_task_count)}
+            data={Number(incomplete?.data)}
           />
           <CardAssignment
             title="Tugas"
             description="Tugas yang sudah terlewat"
-            data={Number(missed?.tasks)}
+            data={Number(missed?.data)}
           />
           <CardAssignment
             title="Tugas"
             description="Tugas mendatang"
-            data={Number(upcoming?.tasks)}
+            data={Number(upcoming?.data)}
           />
         </>
       )}

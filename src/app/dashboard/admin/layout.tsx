@@ -1,13 +1,16 @@
+"use client";
 import { PropsWithChildren } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+const AdminLayout = ({ children }: PropsWithChildren) => {
+  const { data: session } = useSession();
+  const router = useRouter();
 
-const AdminLayout = async ({ children }: PropsWithChildren) => {
-  const session = await getServerSession(authOptions);
-
-  if (session?.user.role !== "admin") return redirect("/dashboard");
+  if (!session || session.user.role !== "admin") {
+    router.push("/dashboard");
+    return null;
+  }
 
   return <div className="min-h-full w-full">{children}</div>;
 };

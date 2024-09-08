@@ -6,8 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetAssignmentIncompleteCount } from "@/http/assignment/get-assignment-incomplete-count";
-import { useSession } from "next-auth/react";
 
 interface CardAssignmentProps {
   title: string;
