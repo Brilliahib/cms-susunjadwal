@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { api } from "@/lib/axios";
 
 interface GetAssignmentUpcomingCountResponse {
-  tasks: Number;
+  data: Number;
 }
 
 export const getAssignmentUpcomingCountHandler = async (

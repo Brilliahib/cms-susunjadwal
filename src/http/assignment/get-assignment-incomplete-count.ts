@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { api } from "@/lib/axios";
 
 interface GetAssignmentIncompleteCountResponse {
-  incomplete_task_count: Number;
+  data: Number;
 }
 
 export const getAssignmentIncompleteCountHandler = async (
