@@ -15,9 +15,14 @@ export default function SideNavL({ links }: SideNavLProps) {
         <div>
           <Link
             href="/"
-            className="flex text-left items-center gap-2 font-semibold"
+            className="flex text-left justify-center items-center gap-2 font-semibold"
           >
-            <h1 className="text-xl font-bold">SusunJadwal</h1>
+            <Image
+              src="/assets/images/logo-susunjadwal.png"
+              alt="Susun Jadwal"
+              width={100}
+              height={100}
+            />
           </Link>
         </div>
         <div className="flex-1">

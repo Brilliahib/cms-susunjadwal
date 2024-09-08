@@ -3,8 +3,9 @@ import { Assignment } from "../assignment/assignment";
 export interface Schedule {
   id: number;
   nama_matakuliah: string;
-  start: Date;
-  end: Date;
+  start_time: Date;
+  end_time: Date;
+  date: Date;
   sks: number;
   dosen_pengampu: string;
   kelas: string;
