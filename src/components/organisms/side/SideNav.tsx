@@ -1,21 +1,17 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import {
   Book,
-  BookCheckIcon,
-  BookIcon,
   CalendarFold,
-  CircleHelpIcon,
   ClipboardCheck,
-  GalleryThumbnails,
+  CircleHelpIcon,
   LayoutDashboardIcon,
-  LucideIcon,
   Settings2Icon,
+  LucideIcon,
   User,
-  UserPlus,
-  Video,
+  TimerReset,
 } from "lucide-react";
 import { Session } from "next-auth";
 import SideNavL from "@/components/atoms/sidenav/SideNavL";
@@ -36,44 +32,70 @@ interface SidenavProps extends PropsWithChildren {
 export default function Sidenav({ children, session }: SidenavProps) {
   const pathname = usePathname();
 
-  const links = [
-    {
-      href: "/dashboard",
-      label: "Dashboard",
-      icon: LayoutDashboardIcon,
-      active: pathname === "/dashboard",
-    },
-    {
-      href: "/dashboard/course",
-      label: "Mata Kuliah",
-      icon: Book,
-      active: pathname === "/dashboard/course",
-    },
-    {
-      href: "/dashboard/schedule",
-      label: "Jadwal Kuliah",
-      icon: CalendarFold,
-      active: pathname === "/dashboard/schedule",
-    },
-    {
-      href: "/dashboard/assignments",
-      label: "Tugas",
-      icon: ClipboardCheck,
-      active: pathname === "/dashboard/assignments",
-    },
-    {
-      href: "/dashboard/settings",
-      label: "Pengaturan",
-      active: pathname === "/dashboard/settings",
-      icon: Settings2Icon,
-    },
-    {
-      href: "#",
-      label: "Bantuan",
-      active: pathname === "/dashboard/bantuan",
-      icon: CircleHelpIcon,
-    },
-  ];
+  const links = useMemo(
+    () => [
+      ...(session?.user.role === "admin"
+        ? [
+            {
+              href: "/dashboard/admin",
+              label: "Dashboard",
+              icon: LayoutDashboardIcon,
+              active: pathname === "/dashboard/admin",
+            },
+            {
+              href: "/dashboard/admin/users",
+              label: "Pengguna",
+              icon: User,
+              active: pathname === "/dashboard/admin/users",
+            },
+            {
+              href: "/dashboard/admin/period",
+              label: "Periode",
+              icon: TimerReset,
+              active: pathname === "/dashboard/admin/period",
+            },
+          ]
+        : [
+            {
+              href: "/dashboard",
+              label: "Dashboard",
+              icon: LayoutDashboardIcon,
+              active: pathname === "/dashboard",
+            },
+            {
+              href: "/dashboard/course",
+              label: "Mata Kuliah",
+              icon: Book,
+              active: pathname === "/dashboard/course",
+            },
+            {
+              href: "/dashboard/schedule",
+              label: "Jadwal Kuliah",
+              icon: CalendarFold,
+              active: pathname === "/dashboard/schedule",
+            },
+            {
+              href: "/dashboard/assignments",
+              label: "Tugas",
+              icon: ClipboardCheck,
+              active: pathname === "/dashboard/assignments",
+            },
+          ]),
+      {
+        href: "/dashboard/settings",
+        label: "Pengaturan",
+        active: pathname === "/dashboard/settings",
+        icon: Settings2Icon,
+      },
+      {
+        href: "#",
+        label: "Bantuan",
+        active: pathname === "/dashboard/bantuan",
+        icon: CircleHelpIcon,
+      },
+    ],
+    [session, pathname]
+  );
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
