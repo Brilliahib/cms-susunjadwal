@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { api } from "@/lib/axios";
 
 interface GetAssignmentMissedCountResponse {
-  tasks: Number;
+  data: Number;
 }
 
 export const getAssignmentMissedCountHandler = async (
