@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import SideNavLink from "./SideNavLink";
+import Image from "next/image";
 
 interface SideNavHeaderProps {
   session: Session;
@@ -46,7 +47,12 @@ export default function SideNavHeader({ session, links }: SideNavHeaderProps) {
           <SheetContent side="left" className="flex flex-col">
             <div className="mx-auto my-8">
               <Link href="/" className="flex items-center  gap-2 font-semibold">
-                <h1 className="text-xl font-semibold">SusunJadwal</h1>
+                <Image
+                  src="/assets/images/logo-susunjadwal.png"
+                  alt="Susun Jadwal"
+                  width={100}
+                  height={100}
+                />
               </Link>
             </div>
             <nav className="grid-gap-2 space-y-4 font-poppins">

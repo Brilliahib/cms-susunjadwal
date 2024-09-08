@@ -17,9 +17,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import ScheduleField from "@/components/atoms/fields/ScheduleField";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import {
   scheduleSchema,
@@ -27,17 +32,28 @@ import {
 } from "@/validators/schedule/schedule-validator";
 import { useAddSchedule } from "@/http/schedule/create-schedule";
 
+const daysOptions = [
+  { value: "Senin", label: "Senin" },
+  { value: "Selasa", label: "Selasa" },
+  { value: "Rabu", label: "Rabu" },
+  { value: "Kamis", label: "Kamis" },
+  { value: "Jumat", label: "Jumat" },
+  { value: "Sabtu", label: "Sabtu" },
+  { value: "Minggu", label: "Minggu" },
+];
+
 const AddScheduleForm = () => {
   const form = useForm<ScheduleType>({
     resolver: zodResolver(scheduleSchema),
     defaultValues: {
       nama_matakuliah: "",
-      start: "",
-      end: "",
+      start_time: "",
+      end_time: "",
       dosen_pengampu: "",
       sks: 0,
       kelas: "",
       ruang_kelas: "",
+      days: "",
     },
     mode: "onChange",
   });
@@ -88,7 +104,7 @@ const AddScheduleForm = () => {
                       <FormControl>
                         <Input
                           type="text"
-                          id="email"
+                          id="nama_matakuliah"
                           placeholder="Masukkan mata kuliah"
                           {...field}
                         />
@@ -107,7 +123,7 @@ const AddScheduleForm = () => {
                       <FormControl>
                         <Input
                           type="text"
-                          id="email"
+                          id="dosen_pengampu"
                           placeholder="Masukkan nama dosen pengampu"
                           {...field}
                         />
@@ -170,18 +186,49 @@ const AddScheduleForm = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="days"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Hari</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        defaultValue=""
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih hari" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {daysOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormDescription>
+                      *Pilih hari kuliah dari daftar
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="flex grid md:grid-cols-2 grid-cols-1 md:gap-4 md:space-y-0 space-y-5">
                 <FormField
                   control={form.control}
-                  name="start"
+                  name="start_time"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Waktu Mulai</FormLabel>
                       <FormControl>
                         <Input
                           className="text-muted-foreground"
-                          type="date"
-                          id="start"
+                          type="time"
+                          id="start_time"
                           {...field}
                         />
                       </FormControl>
@@ -191,15 +238,15 @@ const AddScheduleForm = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="end"
+                  name="end_time"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Waktu Selesai</FormLabel>
                       <FormControl>
                         <Input
-                          type="date"
+                          type="time"
                           className="text-muted-foreground"
-                          id="end"
+                          id="end_time"
                           {...field}
                         />
                       </FormControl>
