@@ -11,7 +11,7 @@ interface GetDetailScheduleParams {
 }
 
 interface GetDetailScheduleResponse {
-  events: ScheduleDetail;
+  data: ScheduleDetail;
 }
 
 export const getDetailScheduleHandler = async ({

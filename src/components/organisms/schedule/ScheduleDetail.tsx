@@ -37,21 +37,21 @@ export default function ScheduleDetail({ id }: Props) {
     return <Skeleton className="h-8 w-72" />;
   }
 
-  const eventName = data?.events?.nama_matakuliah ?? "";
+  const eventName = data?.data?.nama_matakuliah ?? "";
 
   return (
     <>
-      <DashboardDetailSchedule title={eventName} sks={data?.events?.sks ?? 0} />
-      <div className="flex gap-4">
+      <DashboardDetailSchedule title={eventName} sks={data?.data?.sks ?? 0} />
+      <div className="md:flex gap-4 md:space-y-0 space-y-4">
         <div className="md:w-4/12">
           <Card>
             <CardHeader>
               <h1 className="text-xl font-bold">Tugas</h1>
             </CardHeader>
             <CardContent>
-              {data?.events?.tasks?.length ? (
+              {data?.data?.tasks?.length ? (
                 <Accordion type="single" collapsible className="w-full">
-                  {data.events.tasks.map((task: Assignment, index: number) => (
+                  {data.data.tasks.map((task: Assignment, index: number) => (
                     <AccordionItem key={task.id} value={`task-${index}`}>
                       <AccordionTrigger>{task.title}</AccordionTrigger>
                       <AccordionContent>
