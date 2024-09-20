@@ -16,23 +16,21 @@ Frontend will be use as the base app for SusunJadwal.
 1. Clone this repository
 
    ```sh
-   git clone https://github.com/Mediko-id/cms-system.git
+   git clone https://github.com/Brilliahib/cms-susunjadwal
    ```
 
 2. Install dependencies
 
-   > NOTE: please use **pnpm**, don't use other package manager like _npm, yarn, etc_
-
    ```sh
-   pnpm install
+   npm install
    ```
 
 3. Run app
 
    ```sh
-   pnpm dev
+   npm dev
    # or
-   pnpm run dev
+   npm run dev
    ```
 
 ## Workflow
@@ -74,8 +72,7 @@ Frontend will be use as the base app for SusunJadwal.
 
 ```
 .
-└── cms-system/
-    ├── .husky
+└── cms-susunjadwal/
     ├── .next
     ├── node_modules
     ├── public
@@ -96,7 +93,6 @@ Frontend will be use as the base app for SusunJadwal.
     └── ...configfiles
 ```
 
-- .husky : for the git hooks call manipulation
 - .next : cache folder for nextjs
 - node_modules : all dependencies of the app
 - public : it's store all static files
