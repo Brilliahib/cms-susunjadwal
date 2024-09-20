@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

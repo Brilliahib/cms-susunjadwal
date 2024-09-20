@@ -14,7 +14,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -22,12 +22,9 @@ import { id } from "date-fns/locale";
 
 export default function ScheduleCalendar() {
   const session = useSession();
-  const { data, isPending } = useGetAllSchedule(
-    session.data?.access_token as string,
-    {
-      enabled: session.status === "authenticated",
-    }
-  );
+  const { data } = useGetAllSchedule(session.data?.access_token as string, {
+    enabled: session.status === "authenticated",
+  });
 
   const [selectedEvent, setSelectedEvent] = useState<EventApi | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -44,23 +41,22 @@ export default function ScheduleCalendar() {
     };
   }, []);
 
-  if (isPending) {
-    return <div>loading...</div>;
-  }
-
-  const events =
-    data?.data?.map((event) => ({
-      id: event.id.toString(),
-      title: event.nama_matakuliah,
-      start_time: event.start_time,
-      end_time: event.end_time,
-      date: event.date,
-      extendedProps: {
-        dosen: event.dosen_pengampu,
-        ruang: event.ruang_kelas,
-        sks: event.sks,
-      },
-    })) || [];
+  const events = useMemo(
+    () =>
+      data?.data?.map((event) => ({
+        id: event.id.toString(),
+        title: event.nama_matakuliah,
+        start_time: event.start_time,
+        end_time: event.end_time,
+        date: event.date,
+        extendedProps: {
+          dosen: event.dosen_pengampu,
+          ruang: event.ruang_kelas,
+          sks: event.sks,
+        },
+      })) || [],
+    [data]
+  );
 
   const renderEventContent = (eventInfo: any) => {
     return (
@@ -72,6 +68,7 @@ export default function ScheduleCalendar() {
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
+    clickInfo.jsEvent.preventDefault();
     setSelectedEvent(clickInfo.event);
   };
 

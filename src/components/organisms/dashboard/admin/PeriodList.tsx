@@ -5,7 +5,7 @@ import { usersColumns } from "@/components/atoms/datacolumn/UserList";
 import DeleteUserDialog from "@/components/atoms/dialog/DeleteUserDialog";
 import { SearchInput } from "@/components/atoms/search/InputSearch";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useGetPeriod } from "@/http/admin/period/get-all-period";
 import { useDeleteUser } from "@/http/admin/users/delete-user";
 import { useQueryClient } from "@tanstack/react-query";

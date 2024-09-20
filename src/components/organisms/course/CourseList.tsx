@@ -10,29 +10,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetAllSchedule } from "@/http/schedule/get-all-schedule";
+import { useGetSchedule } from "@/http/schedule/get-schedule";
 import { Book } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function CourseList() {
-  const session = useSession();
-  const { data, isPending } = useGetAllSchedule(
-    session.data?.access_token as string,
-    {
-      enabled: session.status === "authenticated",
-    }
-  );
-
+  const { data: session, status } = useSession();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { data, isPending } = useGetSchedule(session?.access_token as string, {
+    enabled: status === "authenticated",
+  });
 
   const schedules =
     data?.data?.filter((schedule) =>
       schedule.nama_matakuliah.toLowerCase().includes(searchQuery.toLowerCase())
     ) || [];
 
-  if (isPending) {
+  if (status === "loading" || isPending) {
     return <CourseListSkeleton />;
   }
   return (
