@@ -26,7 +26,7 @@ export const useGetSchedule = (
   options?: Partial<UseQueryOptions<GetScheduleResponse, AxiosError>>
 ) => {
   return useQuery({
-    queryKey: ["schedule"],
+    queryKey: ["schedule-single"],
     queryFn: () => getScheduleHandler(token),
     ...options,
   });

@@ -87,7 +87,7 @@ const AddScheduleForm = () => {
 
   return (
     <div className="my-6">
-      <Card>
+      <Card className="border !shadow-md">
         <CardContent>
           <Form {...form}>
             <form
