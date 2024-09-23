@@ -15,8 +15,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check, ChevronDown } from "lucide-react";
-import { useGetAllSchedule } from "@/http/schedule/get-all-schedule";
 import { useSession } from "next-auth/react";
+import { useGetSchedule } from "@/http/schedule/get-schedule";
 
 interface ScheduleFieldProps {
   value: number;
@@ -28,7 +28,7 @@ export default function ScheduleField({ value, onChange }: ScheduleFieldProps) {
   const [selectedSchedule, setSelectedSchedule] = useState<number | null>(null);
   const session = useSession();
 
-  const { data } = useGetAllSchedule(session.data?.access_token as string, {
+  const { data } = useGetSchedule(session.data?.access_token as string, {
     enabled: session.status === "authenticated",
   });
 

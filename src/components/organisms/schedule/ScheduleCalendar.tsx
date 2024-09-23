@@ -74,7 +74,7 @@ export default function ScheduleCalendar() {
 
   return (
     <div className="my-6">
-      <Card>
+      <Card className="border !shadow-md">
         <CardHeader>
           <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin]}
