@@ -54,6 +54,15 @@ export const usersColumns: ColumnDef<UserRowProps>[] = [
               <span className="ml-2">Detail Pengguna</span>
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link
+              href={`/dashboard/admin/users/${user.id}/edit`}
+              className="flex items-center text-gray-700  "
+            >
+              <KeyRound className="h-4 w-4" />
+              <span className="ml-2">Reset Password</span>
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => user.handleDelete(user.id)}
             className="cursor-pointer text-red-500 focus:text-red-700"
