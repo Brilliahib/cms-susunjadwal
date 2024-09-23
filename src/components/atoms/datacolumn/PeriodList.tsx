@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, KeyRound, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 
 import {
   DropdownMenuItem,
@@ -71,8 +71,8 @@ export const periodColumns: ColumnDef<PeriodRowProps>[] = [
               href={`/dashboard/admin/period/${period.id}`}
               className="flex items-center text-gray-700  "
             >
-              <Eye className="h-4 w-4" />
-              <span className="ml-2">Detail Periode</span>
+              <SquarePen className="h-4 w-4" />
+              <span className="ml-2">Edit Periode</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem

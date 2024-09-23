@@ -40,7 +40,7 @@ export default function Sidenav({ children, session }: SidenavProps) {
               href: "/dashboard/admin",
               label: "Dashboard",
               icon: LayoutDashboardIcon,
-              active: pathname.startsWith("/dashboard/admin"),
+              active: pathname === "/dashboard/admin",
             },
             {
               href: "/dashboard/admin/users",
